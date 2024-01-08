@@ -12,11 +12,14 @@ val moveInputFile = taskKey[Unit]("Move input files (if any) into the resources 
 
 moveInputFile := {
   import java.nio.file.{Files, StandardCopyOption}
+  import scala.sys.process.stringSeqToProcess
 
   val target = (Compile / resourceDirectory).value
   val sources = (Path.userHome / "Downloads").glob("*.input")
   sources.get().foreach { file =>
     println("Moving " + file.name + "...")
-    Files.move(file.toPath, (target / file.name).toPath, StandardCopyOption.ATOMIC_MOVE)
+    val targetFile = target / file.name
+    Files.move(file.toPath, targetFile.toPath, StandardCopyOption.ATOMIC_MOVE)
+    Seq("git", "add", targetFile.toString).!!
   }
 }
