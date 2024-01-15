@@ -25,10 +25,9 @@ object Day07 {
           Left(v * ns.size + value)
         } else {
           checks.find { case (_, ns) => ns.size == 1 } match {
-            case Some((v, List(n))) => {
+            case Some((v, List(n))) =>
               val norm = checks.keys.find(_ != v).get
               Right(input(n)._1 + norm - v)
-            }
             case _ => throw new IllegalArgumentException("Impossible!")
           }
         }
