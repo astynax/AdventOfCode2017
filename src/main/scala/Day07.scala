@@ -15,11 +15,12 @@ object Day07 {
       if (cs.isEmpty) Left(value)
       else {
         var checks = Map.empty[Int, List[Name]]
-        cs.map(x => x -> check(x))
-          .foreach {
-            case (_, Right(x)) => return Right(x)
-            case (n, Left(x)) => checks = checks.updated(x, n :: checks.getOrElse(x, List()))
+        cs.foreach { n =>
+          check(n) match {
+            case Right(x) => return Right(x)
+            case Left(x) => checks = checks.updated(x, n :: checks.getOrElse(x, List()))
           }
+        }
         if (checks.size == 1) {
           val (v, ns) = checks.head
           Left(v * ns.size + value)
