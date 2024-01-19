@@ -6,7 +6,14 @@ name := "AdventOfCode2017"
 
 idePackagePrefix := Some("me.astynax.adventofcode2017")
 
+libraryDependencies +=  "com.lihaoyi" %% "fastparse" % "3.0.2"
 libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.15" % Test
+
+scalacOptions ++= Seq(
+  "-Werror",
+  "-deprecation",
+  "-feature"
+)
 
 val moveInputFile = taskKey[Unit]("Move input files (if any) into the resources dir")
 
